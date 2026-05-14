@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HONEYCREEP Group | Apartments · Car Rental · Avalon Salon & Spa | Lusaka, Zambia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dim: #8A6E2F;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #1A1A1A;
+  --dark3: #222222;
+  --white: #F8F4EE;
+  --grey: #888880;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Outfit', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  background:linear-gradient(to bottom,rgba(10,10,10,0.95),transparent);
+  backdrop-filter:blur(12px);
+  transition:background 0.4s;
+}
+nav.scrolled{background:rgba(10,10,10,0.97);}
+.nav-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--gold);letter-spacing:0.12em;text-decoration:none;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--grey);font-size:0.78rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-book{background:var(--gold);color:var(--black);padding:9px 22px;border-radius:2px;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.3s;}
+.nav-book:hover{background:var(--gold-light);}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  nav{padding:14px 20px;}
+}
+
+/* ── HERO SLIDER ── */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.hero-slides{position:absolute;inset:0;}
+.hero-slide{
+  position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
+  background-size:cover;background-position:center;
+}
+.hero-slide.active{opacity:1;}
+.hero-slide::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.55) 60%,rgba(10,10,10,0.9) 100%);
+}
+.slide-1{background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85');}
+.slide-2{background-image:url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1600&q=85');}
+.slide-3{background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=85');}
+.slide-4{background-image:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=85');}
+
+.hero-content{
+  position:relative;z-index:2;text-align:center;padding:40px 24px;
+  animation:fadeUp 1.2s ease both;
+}
+.hero-tagline{font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.hero-title{
+  font-family:var(--font-display);font-size:clamp(3.5rem,11vw,8rem);
+  font-weight:300;line-height:1.0;color:var(--white);margin-bottom:10px;
+}
+.hero-title span{color:var(--gold);font-weight:600;font-style:italic;}
+.hero-sub{font-family:var(--font-display);font-size:clamp(1rem,3vw,1.6rem);color:rgba(248,244,238,0.7);margin-bottom:14px;font-weight:300;font-style:italic;}
+.hero-desc{font-size:0.85rem;color:rgba(248,244,238,0.65);max-width:480px;margin:0 auto 36px;line-height:1.8;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:var(--black);padding:14px 32px;font-weight:600;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;text-decoration:none;transition:all 0.3s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{border:1px solid rgba(201,168,76,0.5);color:var(--gold);padding:14px 32px;font-weight:500;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;background:transparent;cursor:pointer;border-radius:2px;text-decoration:none;transition:all 0.3s;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,0.1);}
+
+/* Slider controls */
+.hero-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all 0.3s;}
+.hero-dot.active{background:var(--gold);width:24px;border-radius:3px;}
+.hero-prev,.hero-next{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  background:rgba(0,0,0,0.3);border:1px solid rgba(201,168,76,0.2);
+  color:var(--white);width:44px;height:44px;border-radius:50%;
+  cursor:pointer;font-size:1rem;transition:all 0.3s;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-prev{left:20px;}
+.hero-next{right:20px;}
+.hero-prev:hover,.hero-next:hover{background:rgba(201,168,76,0.2);border-color:var(--gold);}
+
+/* ── SERVICES BAR ── */
+.services-bar{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.services-bar-inner{display:flex;min-width:max-content;}
+.sbar-item{padding:18px 28px;text-align:center;cursor:pointer;border-right:1px solid rgba(201,168,76,0.1);transition:background 0.3s;text-decoration:none;display:block;}
+.sbar-item:hover{background:rgba(201,168,76,0.07);}
+.sbar-item .icon{font-size:1.4rem;display:block;margin-bottom:4px;}
+.sbar-item .label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey);white-space:nowrap;}
+.sbar-item:hover .label{color:var(--gold);}
+
+/* ── SECTIONS ── */
+section{padding:90px 24px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.1;margin-bottom:18px;}
+.section-title em{color:var(--gold);font-style:italic;}
+.section-desc{color:var(--grey);font-size:0.9rem;line-height:1.8;max-width:560px;margin-bottom:50px;}
+.divider{width:60px;height:1px;background:var(--gold);margin-bottom:20px;}
+
+/* ── APARTMENTS ── */
+#apartments{background:var(--dark);}
+.apt-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:40px;}
+@media(max-width:640px){.apt-photo-grid{grid-template-columns:1fr;}}
+.apt-photo-main{grid-column:1/3;height:380px;overflow:hidden;position:relative;}
+@media(max-width:640px){.apt-photo-main{grid-column:1;height:240px;}}
+.apt-photo-main img,.apt-photo-sub img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;}
+.apt-photo-main:hover img,.apt-photo-sub:hover img{transform:scale(1.04);}
+.apt-photo-main .photo-caption,.apt-photo-sub .photo-caption{
+  position:absolute;bottom:0;left:0;right:0;padding:12px 16px;
+  background:linear-gradient(transparent,rgba(0,0,0,0.75));
+  font-size:0.72rem;color:rgba(255,255,255,0.8);letter-spacing:0.06em;
+}
+.apt-photo-sub{height:200px;overflow:hidden;position:relative;}
+.apt-specs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:36px 0;}
+@media(max-width:640px){.apt-specs{grid-template-columns:repeat(2,1fr);}}
+.spec{text-align:center;padding:20px;background:var(--dark3);border:1px solid rgba(201,168,76,0.08);}
+.spec .num{font-family:var(--font-display);font-size:2rem;color:var(--gold);font-weight:600;}
+.spec .price-tag{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);font-weight:600;}
+.spec .lbl{font-size:0.7rem;color:var(--grey);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;}
+.apt-highlights{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+.apt-badge{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:7px 16px;font-size:0.72rem;letter-spacing:0.06em;border-radius:2px;}
+
+/* ── CARS ── */
+#cars{background:var(--black);}
+.fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:768px){.fleet-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.fleet-grid{grid-template-columns:1fr 1fr;gap:10px;}}
+.car-card{background:var(--dark2);border:1px solid rgba(201,168,76,0.1);overflow:hidden;border-radius:2px;transition:all 0.3s;cursor:pointer;}
+.car-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+.car-photo{height:160px;overflow:hidden;}
+.car-photo img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.car-card:hover .car-photo img{transform:scale(1.06);}
+.car-info{padding:18px 16px;}
+.car-name{font-family:var(--font-display);font-size:1.1rem;color:var(--white);margin-bottom:3px;}
+.car-type{font-size:0.7rem;color:var(--grey);letter-spacing:0.06em;}
+.car-features{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.car-tag{font-size:0.62rem;background:rgba(201,168,76,0.08);color:var(--gold-dim);padding:3px 8px;border-radius:1px;letter-spacing:0.06em;}
+.fleet-extras{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+@media(max-width:640px){.fleet-extras{grid-template-columns:1fr;}}
+.extra-card{background:var(--dark3);padding:20px;border-left:3px solid var(--gold);}
+.extra-card h4{font-size:0.85rem;color:var(--white);margin-bottom:6px;letter-spacing:0.04em;}
+.extra-card p{font-size:0.76rem;color:var(--grey);line-height:1.6;}
+
+/* ── TOUCHTONE ── */
+#touchtone{background:var(--dark);}
+.tt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:640px){.tt-grid{grid-template-columns:1fr 1fr;}}
+.tt-card{padding:28px 22px;background:var(--dark2);border:1px solid rgba(201,168,76,0.08);transition:all 0.3s;}
+.tt-card:hover{border-color:rgba(201,168,76,0.3);}
+.tt-icon{font-size:2rem;margin-bottom:14px;}
+.tt-card h4{font-family:var(--font-display);font-size:1.05rem;color:var(--white);margin-bottom:8px;}
+.tt-card p{font-size:0.78rem;color:var(--grey);line-height:1.7;}
+
+/* ── AVALON ── */
+#avalon{background:var(--black);}
+.avalon-hero{
+  height:340px;overflow:hidden;margin-bottom:48px;position:relative;
+}
+.avalon-hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+.avalon-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.8),transparent 60%);}
+.avalon-hero-text{position:absolute;top:50%;left:40px;transform:translateY(-50%);z-index:2;}
+.avalon-hero-text h3{font-family:var(--font-display);font-size:2.5rem;font-weight:300;color:var(--white);line-height:1.15;}
+.avalon-hero-text h3 em{color:var(--gold);font-style:italic;}
+.salon-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+@media(max-width:768px){.salon-grid{grid-template-columns:1fr;}}
+.salon-services{display:flex;flex-direction:column;gap:12px;}
+.salon-item{display:flex;align-items:flex-start;gap:16px;padding:18px;background:var(--dark2);border:1px solid rgba(201,168,76,0.08);transition:border-color 0.3s;}
+.salon-item:hover{border-color:rgba(201,168,76,0.25);}
+.salon-item .s-icon{font-size:1.5rem;flex-shrink:0;}
+.salon-item h4{font-size:0.85rem;color:var(--white);margin-bottom:4px;}
+.salon-item p{font-size:0.75rem;color:var(--grey);line-height:1.6;}
+.salon-cta{background:var(--dark2);padding:32px;border:1px solid rgba(201,168,76,0.1);}
+
+/* ── SPA ── */
+#avalon-spa{background:var(--dark);}
+.spa-photo-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;height:220px;margin-bottom:40px;overflow:hidden;}
+@media(max-width:640px){.spa-photo-row{height:140px;}}
+.spa-photo-row div{overflow:hidden;}
+.spa-photo-row img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.spa-photo-row div:hover img{transform:scale(1.06);}
+.spa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:640px){.spa-grid{grid-template-columns:repeat(2,1fr);}}
+.spa-card{text-align:center;padding:28px 18px;background:var(--dark2);border:1px solid rgba(201,168,76,0.08);transition:all 0.3s;}
+.spa-card:hover{background:rgba(201,168,76,0.04);border-color:rgba(201,168,76,0.25);}
+.spa-icon{font-size:2rem;margin-bottom:12px;display:block;}
+.spa-card h4{font-family:var(--font-display);font-size:1rem;color:var(--white);margin-bottom:6px;}
+.spa-card p{font-size:0.74rem;color:var(--grey);line-height:1.6;}
+
+/* ── WHY ── */
+#why{background:var(--black);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:640px){.why-grid{grid-template-columns:1fr 1fr;}}
+.why-card{padding:28px 22px;border:1px solid rgba(201,168,76,0.1);background:var(--dark2);}
+.why-icon{font-size:1.8rem;margin-bottom:12px;}
+.why-card h4{font-size:0.85rem;color:var(--white);margin-bottom:8px;letter-spacing:0.04em;}
+.why-card p{font-size:0.76rem;color:var(--grey);line-height:1.7;}
+
+/* ── CONTACT ── */
+#contact{background:var(--dark);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:40px;}}
+.contact-info{display:flex;flex-direction:column;gap:24px;}
+.c-item{display:flex;gap:16px;align-items:flex-start;}
+.c-icon{width:42px;height:42px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;border-radius:2px;}
+.c-text h4{font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;}
+.c-text p,.c-text a{font-size:0.85rem;color:var(--white);line-height:1.7;text-decoration:none;display:block;}
+.c-text a:hover{color:var(--gold);}
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.form-input{background:var(--dark3);border:1px solid rgba(201,168,76,0.15);color:var(--white);padding:14px 18px;font-family:var(--font-body);font-size:0.85rem;border-radius:2px;outline:none;transition:border-color 0.3s;width:100%;}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:var(--grey);}
+select.form-input option{background:var(--dark3);}
+textarea.form-input{min-height:100px;resize:vertical;}
+.form-submit{background:var(--gold);color:var(--black);padding:16px;font-family:var(--font-body);font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:all 0.3s;width:100%;}
+.form-submit:hover{background:var(--gold-light);}
+
+/* ── FOOTER ── */
+footer{background:var(--dark2);border-top:1px solid rgba(201,168,76,0.15);padding:50px 24px 30px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+@media(max-width:640px){.footer-top{grid-template-columns:1fr;}}
+.footer-brand .logo{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);font-weight:700;letter-spacing:0.1em;margin-bottom:8px;}
+.footer-brand .tagline{font-family:var(--font-display);font-style:italic;color:var(--grey);font-size:0.9rem;margin-bottom:14px;}
+.footer-brand .reg{font-size:0.7rem;color:rgba(136,136,128,0.6);line-height:1.8;}
+.footer-col h5{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li{font-size:0.82rem;color:var(--grey);cursor:pointer;transition:color 0.3s;}
+.footer-col ul li:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:0.72rem;color:rgba(136,136,128,0.5);}
+.footer-heart{font-size:0.72rem;color:rgba(136,136,128,0.5);}
+
+/* ── WHATSAPP ── */
+.wa-fab{
+  position:fixed;bottom:108px;right:24px;z-index:9997;
+  width:50px;height:50px;border-radius:50%;
+  background:#25D366;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(37,211,102,0.4);
+  font-size:1.4rem;text-decoration:none;transition:all 0.3s;
+}
+.wa-fab:hover{transform:scale(1.08);}
+
+/* ── HONEY AI CHATBOT ── */
+.ai-fab{
+  position:fixed;bottom:28px;right:24px;z-index:9999;
+  width:62px;height:62px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#8A6E2F);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px rgba(201,168,76,0.45);
+  transition:all 0.3s;font-size:1.6rem;
+}
+.ai-fab:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(201,168,76,0.65);}
+.ai-fab .fab-badge{
+  position:absolute;top:0;right:0;width:18px;height:18px;
+  background:#E53E3E;border-radius:50%;border:2px solid var(--black);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.52rem;color:white;font-weight:700;
+}
+.ai-window{
+  position:fixed;bottom:106px;right:24px;z-index:9998;
+  width:360px;max-width:calc(100vw - 40px);
+  background:var(--dark2);border:1px solid rgba(201,168,76,0.25);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.75);
+  display:none;flex-direction:column;max-height:520px;
+  animation:slideUp 0.3s ease;
+}
+.ai-window.open{display:flex;}
+.ai-header{
+  background:linear-gradient(135deg,#1A1A0A,#1A1500);
+  border-bottom:1px solid rgba(201,168,76,0.2);
+  padding:16px 18px;display:flex;align-items:center;gap:12px;
+}
+.ai-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#8A6E2F);
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+}
+.ai-header-info{flex:1;}
+.ai-name{font-size:0.9rem;font-weight:600;color:var(--white);}
+.ai-status{font-size:0.68rem;color:#4CAF50;display:flex;align-items:center;gap:4px;}
+.ai-status::before{content:'';width:6px;height:6px;background:#4CAF50;border-radius:50%;display:inline-block;animation:pulse 2s infinite;}
+.ai-close{background:none;border:none;color:var(--grey);cursor:pointer;font-size:1.2rem;padding:4px;transition:color 0.2s;}
+.ai-close:hover{color:var(--white);}
+.ai-messages{
+  flex:1;overflow-y:auto;padding:16px;
+  display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;
+}
+.ai-messages::-webkit-scrollbar{width:4px;}
+.ai-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);border-radius:2px;}
+.msg{display:flex;gap:8px;align-items:flex-end;}
+.msg.bot{flex-direction:row;}
+.msg.user{flex-direction:row-reverse;}
+.msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#8A6E2F);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;}
+.msg-bubble{max-width:80%;padding:10px 14px;border-radius:12px;font-size:0.82rem;line-height:1.6;}
+.msg.bot .msg-bubble{background:var(--dark3);color:var(--white);border-bottom-left-radius:2px;}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--gold),#8A6E2F);color:var(--black);font-weight:500;border-bottom-right-radius:2px;}
+.quick-btns{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px;}
+.q-btn{
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);
+  color:var(--gold);padding:6px 12px;font-size:0.72rem;border-radius:20px;
+  cursor:pointer;transition:all 0.2s;font-family:var(--font-body);
+}
+.q-btn:hover{background:rgba(201,168,76,0.18);border-color:var(--gold);}
+.ai-input-row{
+  border-top:1px solid rgba(201,168,76,0.15);
+  padding:12px 14px;display:flex;gap:8px;align-items:center;
+  background:var(--dark);
+}
+.ai-input{
+  flex:1;background:var(--dark3);border:1px solid rgba(201,168,76,0.15);
+  color:var(--white);padding:10px 14px;border-radius:20px;
+  font-family:var(--font-body);font-size:0.82rem;outline:none;transition:border-color 0.3s;
+}
+.ai-input:focus{border-color:rgba(201,168,76,0.4);}
+.ai-input::placeholder{color:var(--grey);}
+.ai-send{
+  width:38px;height:38px;border-radius:50%;background:var(--gold);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--black);transition:all 0.2s;flex-shrink:0;
+}
+.ai-send:hover{background:var(--gold-light);}
+.typing{display:flex;gap:4px;align-items:center;padding:10px 14px;}
+.typing span{width:6px;height:6px;background:var(--grey);border-radius:50%;animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s;}
+.typing span:nth-child(3){animation-delay:0.4s;}
+
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">HONEYCREEP</a>
+  <ul class="nav-links">
+    <li><a href="#apartments">Apartments</a></li>
+    <li><a href="#cars">Car Rental</a></li>
+    <li><a href="#touchtone">Touchtone</a></li>
+    <li><a href="#avalon">Salon</a></li>
+    <li><a href="#avalon-spa">Spa</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-book">Book Now</a>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="home">
+  <div class="hero-slides">
+    <div class="hero-slide slide-1 active"></div>
+    <div class="hero-slide slide-2"></div>
+    <div class="hero-slide slide-3"></div>
+    <div class="hero-slide slide-4"></div>
+  </div>
+  <button class="hero-prev" onclick="changeSlide(-1)">‹</button>
+  <button class="hero-next" onclick="changeSlide(1)">›</button>
+  <div class="hero-content">
+    <div class="hero-tagline">Group of Companies · Lusaka, Zambia</div>
+    <h1 class="hero-title">HONEY<span>CREEP</span><br>GROUP</h1>
+    <p class="hero-sub">Luxury all round.</p>
+    <p class="hero-desc">A proudly Zambian group of companies — luxury apartments, premium car rental & tours, professional printing and Avalon Salon, Barber & Spa.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book Now</a>
+      <a href="#apartments" class="btn-outline">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+    <div class="hero-dot" onclick="goSlide(2)"></div>
+    <div class="hero-dot" onclick="goSlide(3)"></div>
+  </div>
+</section>
+
+<!-- SERVICES BAR -->
+<div class="services-bar">
+  <div class="services-bar-inner">
+    <a href="#apartments" class="sbar-item"><span class="icon">🏢</span><span class="label">Apartments</span></a>
+    <a href="#cars" class="sbar-item"><span class="icon">🚗</span><span class="label">Car Rental</span></a>
+    <a href="#touchtone" class="sbar-item"><span class="icon">🖨️</span><span class="label">Touchtone</span></a>
+    <a href="#avalon" class="sbar-item"><span class="icon">✂️</span><span class="label">Avalon Salon</span></a>
+    <a href="#avalon-spa" class="sbar-item"><span class="icon">🌿</span><span class="label">Avalon Spa</span></a>
+    <a href="#contact" class="sbar-item"><span class="icon">📞</span><span class="label">Contact</span></a>
+  </div>
+</div>
+
+<!-- APARTMENTS -->
+<section id="apartments">
+  <div class="section-inner">
+    <div class="section-label">Honeycreep Apartments · Kings Land City, Lusaka</div>
+    <div class="divider"></div>
+    <h2 class="section-title">A Residence That<br><em>Redefines Lusaka Living</em></h2>
+    <p class="section-desc">Floor-to-ceiling glass, designer interiors, private balconies, and every comfort you could ask for. Fully furnished 3-bedroom luxury residence at Kings Land City.</p>
+
+    <!-- Photo grid with real Unsplash images -->
+    <div class="apt-photo-grid">
+      <div class="apt-photo-main">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85" alt="Honeycreep Luxury Apartments">
+        <div class="photo-caption">Honeycreep Apartments · Kings Land City, Lusaka</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=85" alt="Living Room">
+        <div class="photo-caption">Living Room · Designer sofa · Smart TV</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=700&q=85" alt="Master Bedroom">
+        <div class="photo-caption">Master Bedroom · En-suite · King bed</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=85" alt="Kitchen">
+        <div class="photo-caption">Kitchen · Gas hob · Full appliances</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1615968679312-6fcd1e33e0ca?w=700&q=85" alt="Dining Room">
+        <div class="photo-caption">Dining Room · Elegant open plan</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=700&q=85" alt="Bathroom">
+        <div class="photo-caption">Bathroom · Premium fittings</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=85" alt="Second Bedroom">
+        <div class="photo-caption">Second Bedroom · King bed</div>
+      </div>
+      <div class="apt-photo-sub">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6d71d171?w=700&q=85" alt="Outdoor Garden">
+        <div class="photo-caption">Outdoor & Garden · BBQ patio</div>
+      </div>
+    </div>
+
+    <div class="apt-specs">
+      <div class="spec"><div class="num">3</div><div class="lbl">Bedrooms</div></div>
+      <div class="spec"><div class="num">3</div><div class="lbl">Bathrooms</div></div>
+      <div class="spec"><div class="price-tag">$160<span style="font-size:0.9rem;color:var(--grey);font-weight:300;">/night</span></div><div class="lbl">Per Night</div></div>
+      <div class="spec"><div class="num">100%</div><div class="lbl">Furnished</div></div>
+    </div>
+    <div class="apt-highlights">
+      <span class="apt-badge">✓ 24/7 Security</span>
+      <span class="apt-badge">✓ Backup Power</span>
+      <span class="apt-badge">✓ Free WiFi</span>
+      <span class="apt-badge">✓ Cleaning Service</span>
+      <span class="apt-badge">✓ Private Balcony</span>
+      <span class="apt-badge">✓ BBQ Patio</span>
+    </div>
+    <a href="#contact" class="btn-primary">Book Apartment</a>
+    <div style="margin-top:20px;padding:18px 22px;background:var(--dark3);border:1px solid rgba(201,168,76,0.2);display:inline-flex;align-items:center;gap:12px;border-radius:2px;">
+      <span style="font-size:1.2rem;">🏢</span>
+      <div>
+        <div style="font-size:0.7rem;color:var(--grey);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Full Apartment Showcase</div>
+        <a href="https://honeycreep.netlify.app" target="_blank" style="color:var(--gold);font-family:var(--font-display);font-size:1.1rem;text-decoration:none;letter-spacing:0.04em;">View Full Apartment Details →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARS -->
+<section id="cars">
+  <div class="section-inner">
+    <div class="section-label">Honeycreep Car Rental & Tours</div>
+    <div class="divider"></div>
+    <h2 class="section-title">Travel in <em>Style</em><br>Across Zambia</h2>
+    <p class="section-desc">Comprehensive car rental with chauffeur options, corporate travel, wedding transport and guided tours. All vehicles comprehensively insured with unlimited mileage.</p>
+
+    <div class="fleet-grid">
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80" alt="Toyota Fortuner"></div>
+        <div class="car-info">
+          <div class="car-name">Toyota Fortuner</div>
+          <div class="car-type">SUV · 7 Seater</div>
+          <div class="car-features"><span class="car-tag">4x4</span><span class="car-tag">Chauffeur</span><span class="car-tag">Family</span></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80" alt="Honda CR-V"></div>
+        <div class="car-info">
+          <div class="car-name">Honda CR-V</div>
+          <div class="car-type">SUV · 5 Seater</div>
+          <div class="car-features"><span class="car-tag">SUV</span><span class="car-tag">Automatic</span><span class="car-tag">Comfort</span></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1566274360959-dfd5d4a8be38?w=600&q=80" alt="Toyota Mark X"></div>
+        <div class="car-info">
+          <div class="car-name">Toyota Mark X</div>
+          <div class="car-type">Sedan · Executive</div>
+          <div class="car-features"><span class="car-tag">Executive</span><span class="car-tag">Sedan</span><span class="car-tag">Business</span></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Toyota Hilux"></div>
+        <div class="car-info">
+          <div class="car-name">Toyota Hilux</div>
+          <div class="car-type">Pickup · 4×4</div>
+          <div class="car-features"><span class="car-tag">4x4</span><span class="car-tag">Safari</span><span class="car-tag">Offroad</span></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80" alt="Toyota Alphard"></div>
+        <div class="car-info">
+          <div class="car-name">Toyota Alphard</div>
+          <div class="car-type">MPV · Luxury Van</div>
+          <div class="car-features"><span class="car-tag">VIP</span><span class="car-tag">Group</span><span class="car-tag">Airport</span></div>
+        </div>
+      </div>
+      <div class="car-card">
+        <div class="car-photo"><img src="https://images.unsplash.com/photo-1551830820-330a71b99659?w=600&q=80" alt="Range Rover"></div>
+        <div class="car-info">
+          <div class="car-name">Range Rover</div>
+          <div class="car-type">Luxury SUV · Premium</div>
+          <div class="car-features"><span class="car-tag">Premium</span><span class="car-tag">Wedding</span><span class="car-tag">VIP</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fleet-extras">
+      <div class="extra-card"><h4>💒 Wedding Transport</h4><p>Elegant fleet for your special day including Range Rover & Alphard</p></div>
+      <div class="extra-card"><h4>✈️ Airport Transfers</h4><p>Reliable pickups and drop-offs at Kenneth Kaunda International</p></div>
+      <div class="extra-card"><h4>🏢 Corporate Travel</h4><p>Executive vehicles with professional chauffeurs for business travel</p></div>
+    </div>
+
+    <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;">
+      <span class="apt-badge">✓ Fully Insured</span>
+      <span class="apt-badge">✓ Unlimited Mileage</span>
+      <span class="apt-badge">✓ Chauffeur Available</span>
+      <span class="apt-badge">✓ 24/7 Roadside</span>
+    </div>
+    <div style="margin-top:28px;"><a href="#contact" class="btn-primary">Book a Vehicle</a></div>
+  </div>
+</section>
+
+<!-- TOUCHTONE -->
+<section id="touchtone">
+  <div class="section-inner">
+    <div class="section-label">Honeycreep Group · Touchtone</div>
+    <div class="divider"></div>
+    <h2 class="section-title">Touchtone<br><em>Printing & Advertising</em></h2>
+    <p class="section-desc">From business cards and banners to full branding campaigns. We bring your brand to life with quality print and digital advertising solutions in Lusaka and beyond.</p>
+    <!-- Touchtone photo strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;height:200px;margin-bottom:32px;overflow:hidden;">
+      <div style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1504707748692-419802cf939d?w=600&q=80" alt="Printing" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=80" alt="Branding Design" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Signage" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"></div>
+    </div>
+
+    <div class="tt-grid">
+      <div class="tt-card"><div class="tt-icon">🖨️</div><h4>Print Services</h4><p>Business cards, flyers, banners, posters, brochures & large format printing</p></div>
+      <div class="tt-card"><div class="tt-icon">📢</div><h4>Advertising</h4><p>Digital advertising, billboard design, social media graphics & campaign management</p></div>
+      <div class="tt-card"><div class="tt-icon">🎨</div><h4>Branding & Design</h4><p>Logo design, brand identity, corporate stationery & full brand packages</p></div>
+      <div class="tt-card"><div class="tt-icon">👕</div><h4>Branded Merchandise</h4><p>T-shirts, caps, uniforms, branded gifts & corporate merchandise</p></div>
+      <div class="tt-card"><div class="tt-icon">🪟</div><h4>Signage & Displays</h4><p>Shop fronts, vehicle wraps, pull-up banners & exhibition displays</p></div>
+      <div class="tt-card"><div class="tt-icon">📱</div><h4>Digital Media</h4><p>Social media content, digital banners, email marketing & online ads</p></div>
+    </div>
+    <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <a href="#contact" class="btn-primary">Get a Quote</a>
+      <div style="padding:18px 22px;background:var(--dark3);border:1px solid rgba(201,168,76,0.2);display:inline-flex;align-items:center;gap:12px;border-radius:2px;">
+        <span style="font-size:1.2rem;">🖨️</span>
+        <div>
+          <div style="font-size:0.7rem;color:var(--grey);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">See Our Work In Action</div>
+          <a href="https://www.facebook.com/share/v/1KYPosbscp/" target="_blank" style="color:var(--gold);font-family:var(--font-display);font-size:1.1rem;text-decoration:none;letter-spacing:0.04em;">View Touchtone Showcase →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALON SALON -->
+<section id="avalon">
+  <div class="section-inner">
+    <div class="section-label">Honeycreep Group · Avalon</div>
+    <div class="divider"></div>
+    <h2 class="section-title">Avalon Salon &<br><em>Barber Shop</em></h2>
+    <p class="section-desc">Premium grooming and beauty services in Lusaka. From sharp fades to elegant styles, our skilled professionals ensure you leave looking and feeling your absolute best.</p>
+
+    <div class="avalon-hero">
+      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1400&q=85" alt="Avalon Salon">
+      <div class="avalon-hero-text">
+        <h3>Your look.<br><em>Perfected.</em></h3>
+      </div>
+    </div>
+
+    <!-- Barber & haircut photo grid — colour + black & white mix -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:36px;overflow:hidden;">
+      <div style="height:180px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&q=80" alt="Barber fade" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:all 0.5s;" onmouseover="this.style.filter='grayscale(0%)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='grayscale(100%)';this.style.transform='scale(1)'">
+      </div>
+      <div style="height:180px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&q=80" alt="Hair styling" style="width:100%;height:100%;object-fit:cover;transition:all 0.5s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      </div>
+      <div style="height:180px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&q=80" alt="Barber cut" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:all 0.5s;" onmouseover="this.style.filter='grayscale(0%)';this.style.transform='scale(1.06)'" onmouseout="this.style.filter='grayscale(100%)';this.style.transform='scale(1)'">
+      </div>
+      <div style="height:180px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt="Salon styling" style="width:100%;height:100%;object-fit:cover;transition:all 0.5s;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      </div>
+    </div>
+
+    <div class="salon-grid">
+      <div class="salon-services">
+        <div class="salon-item"><span class="s-icon">✂️</span><div><h4>Haircut & Styling</h4><p>Classic cuts, fades, tapers & modern styles for all hair types</p></div></div>
+        <div class="salon-item"><span class="s-icon">🪒</span><div><h4>Shaving & Beard Grooming</h4><p>Hot towel shaves, beard trims, lining & beard treatments</p></div></div>
+        <div class="salon-item"><span class="s-icon">💇</span><div><h4>Hair Treatment & Colour</h4><p>Deep conditioning, relaxers, colouring & scalp treatments</p></div></div>
+        <div class="salon-item"><span class="s-icon">👑</span><div><h4>Bridal & Event Styling</h4><p>Special occasion hair and makeup for your big day</p></div></div>
+        <div class="salon-item"><span class="s-icon">🎨</span><div><h4>Highlights & Ombre</h4><p>Balayage, highlights, ombre & full-colour transformations</p></div></div>
+      </div>
+      <div class="salon-cta">
+        <div style="font-family:var(--font-display);font-size:2rem;color:var(--gold);font-weight:300;line-height:1.2;margin-bottom:16px;">Walk in.<br><em>Walk out transformed.</em></div>
+        <p style="font-size:0.82rem;color:var(--grey);line-height:1.8;margin-bottom:24px;">Avalon Salon & Barber Shop brings together skilled artisans dedicated to making you look and feel extraordinary.</p>
+        <a href="#contact" class="btn-primary" style="display:block;text-align:center;">Book Appointment</a>
+        <div style="margin-top:16px;padding:18px 22px;background:var(--dark3);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;gap:12px;border-radius:2px;">
+          <span style="font-size:1.2rem;">✂️</span>
+          <div>
+            <div style="font-size:0.7rem;color:var(--grey);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">See Our Salon Work</div>
+            <a href="https://www.facebook.com/share/1DuZY4qtoS/" target="_blank" style="color:var(--gold);font-family:var(--font-display);font-size:1.1rem;text-decoration:none;letter-spacing:0.04em;">View Avalon Showcase →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALON SPA -->
+<section id="avalon-spa">
+  <div class="section-inner">
+    <div class="section-label">Avalon · Spa & Wellness</div>
+    <div class="divider"></div>
+    <h2 class="section-title">Pedicure, Manicure,<br><em>Massage & More</em></h2>
+    <p class="section-desc">Full-service wellness from luxurious pedicures and manicures to full body massage and skincare. Your complete beauty destination in Lusaka.</p>
+
+    <div class="spa-photo-row">
+      <div><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=500&q=80" alt="Spa massage"></div>
+      <div><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Facial treatment"></div>
+      <div><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Manicure pedicure"></div>
+    </div>
+
+    <div class="spa-grid">
+      <div class="spa-card"><span class="spa-icon">💆</span><h4>Full Body Massage</h4><p>Deep tissue, Swedish & relaxation massage</p></div>
+      <div class="spa-card"><span class="spa-icon">💅</span><h4>Manicure</h4><p>Classic, gel & nail art for beautiful hands</p></div>
+      <div class="spa-card"><span class="spa-icon">🦶</span><h4>Pedicure</h4><p>Luxury foot care, scrubs & nail treatments</p></div>
+      <div class="spa-card"><span class="spa-icon">✨</span><h4>Facial & Skincare</h4><p>Deep cleansing, anti-aging & brightening</p></div>
+      <div class="spa-card"><span class="spa-icon">🌸</span><h4>Waxing & Threading</h4><p>Smooth, long-lasting hair removal</p></div>
+      <div class="spa-card"><span class="spa-icon">💑</span><h4>Couple's Package</h4><p>Romantic spa experience for two</p></div>
+    </div>
+    <div style="margin-top:28px;"><a href="#contact" class="btn-primary">Book Spa Treatment</a></div>
+  </div>
+</section>
+
+<!-- WHY HONEYCREEP -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-label">Why Honeycreep</div>
+    <div class="divider"></div>
+    <h2 class="section-title">One Group,<br><em>Excellence Everywhere</em></h2>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">🏆</div><h4>Premium Quality</h4><p>Every service meets the highest standards of quality, comfort and professionalism.</p></div>
+      <div class="why-card"><div class="why-icon">🔐</div><h4>Safe & Secure</h4><p>24/7 security across all properties and fully insured vehicles for complete peace of mind.</p></div>
+      <div class="why-card"><div class="why-icon">💎</div><h4>Luxury Experience</h4><p>From apartments to spa treatments, accessible luxury that is truly memorable.</p></div>
+      <div class="why-card"><div class="why-icon">🤝</div><h4>PACRA Registered</h4><p>Reg. No. 120230056325 · ZRA compliant. A company you can fully trust.</p></div>
+      <div class="why-card"><div class="why-icon">📞</div><h4>24/7 Support</h4><p>Always available — roadside assistance, reception & customer care round the clock.</p></div>
+      <div class="why-card"><div class="why-icon">✨</div><h4>All Under One Roof</h4><p>Apartments, car rental, salon, barber & spa — everything from one trusted group.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get In Touch</div>
+    <div class="divider"></div>
+    <h2 class="section-title">Book Any<br><em>Service Today</em></h2>
+    <p class="section-desc">Contact us for apartments, car bookings, salon appointments or spa treatments. We are ready to serve you 24/7.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="c-item"><div class="c-icon">📍</div><div class="c-text"><h4>Location</h4><p>Southern Sun Ridgeway<br>Cnr. Church Road & Independence Avenue<br>Lusaka, Zambia</p></div></div>
+        <div class="c-item"><div class="c-icon">📞</div><div class="c-text"><h4>Phone</h4><a href="tel:+260977662041">+260 977 662 041</a><a href="tel:+260979198312">+260 979 198 312</a></div></div>
+        <div class="c-item"><div class="c-icon">✉️</div><div class="c-text"><h4>Email</h4><a href="mailto:honeycreep2023@gmail.com">honeycreep2023@gmail.com</a></div></div>
+        <div class="c-item"><div class="c-icon">🕐</div><div class="c-text"><h4>Hours</h4><p>24/7 — We never close</p></div></div>
+      </div>
+      <div class="contact-form">
+        <input type="text" class="form-input" placeholder="Your Full Name">
+        <input type="tel" class="form-input" placeholder="Phone Number">
+        <input type="email" class="form-input" placeholder="Email Address">
+        <select class="form-input">
+          <option value="" disabled selected>Select Service</option>
+          <option>🏢 Luxury Apartment</option>
+          <option>🚗 Car Rental</option>
+          <option>🚗 Chauffeur Service</option>
+          <option>💒 Wedding Transport</option>
+          <option>✈️ Airport Transfer</option>
+          <option>🖨️ Touchtone — Printing</option>
+          <option>🎨 Touchtone — Branding</option>
+          <option>✂️ Avalon — Haircut</option>
+          <option>🪒 Avalon — Barber/Shave</option>
+          <option>💆 Avalon Spa — Massage</option>
+          <option>💅 Avalon Spa — Manicure</option>
+          <option>🦶 Avalon Spa — Pedicure</option>
+          <option>✨ Avalon Spa — Facial</option>
+          <option>💑 Couple's Spa Package</option>
+        </select>
+        <textarea class="form-input" placeholder="Additional requests or questions..."></textarea>
+        <button class="form-submit">Send Booking Request</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">HONEYCREEP</div>
+        <div class="tagline">Luxury all round.</div>
+        <div class="reg">PACRA Reg. 120230056325<br>ZRA · TPIN 2002067684<br>A Proudly Zambian Company</div>
+      </div>
+      <div class="footer-col">
+        <h5>Our Services</h5>
+        <ul>
+          <li onclick="document.getElementById('apartments').scrollIntoView({behavior:'smooth'})">🏢 Luxury Apartments</li>
+          <li onclick="document.getElementById('cars').scrollIntoView({behavior:'smooth'})">🚗 Car Rental & Tours</li>
+          <li onclick="document.getElementById('touchtone').scrollIntoView({behavior:'smooth'})">🖨️ Touchtone Print & Ads</li>
+          <li onclick="document.getElementById('avalon').scrollIntoView({behavior:'smooth'})">✂️ Avalon Salon & Barber</li>
+          <li onclick="document.getElementById('avalon-spa').scrollIntoView({behavior:'smooth'})">🌿 Avalon Spa & Wellness</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <ul>
+          <li>📞 +260 977 662 041</li>
+          <li>📞 +260 979 198 312</li>
+          <li>✉️ honeycreep2023@gmail.com</li>
+          <li>📍 Southern Sun Ridgeway, Lusaka</li>
+          <li>🕐 Open 24/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 HONEYCREEP Group · PACRA Reg. No. 120230056325</span>
+      <span class="footer-heart">Designed with ❤️ in Zambia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/260977662041" target="_blank" class="wa-fab" title="WhatsApp Us">💬</a>
+
+<!-- HONEY AI FAB -->
+<button class="ai-fab" onclick="toggleAI()" title="Chat with Honey AI">
+  🍯
+  <span class="fab-badge">AI</span>
+</button>
+
+<!-- HONEY AI WINDOW -->
+<div class="ai-window" id="aiWindow">
+  <div class="ai-header">
+    <div class="ai-avatar">🍯</div>
+    <div class="ai-header-info">
+      <div class="ai-name">Honey AI</div>
+      <div class="ai-status">Online · Honeycreep Assistant</div>
+    </div>
+    <button class="ai-close" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="ai-messages" id="aiMessages">
+    <div class="msg bot">
+      <div class="msg-avatar">🍯</div>
+      <div class="msg-bubble">Hello! I'm <strong>Honey</strong>, your Honeycreep assistant. 👋<br><br>How can I help you today?</div>
+    </div>
+  </div>
+  <div class="quick-btns" id="quickBtns">
+    <button class="q-btn" onclick="quickAsk('apartments')">🏢 Apartments</button>
+    <button class="q-btn" onclick="quickAsk('cars')">🚗 Car Rental</button>
+    <button class="q-btn" onclick="quickAsk('salon')">✂️ Salon</button>
+    <button class="q-btn" onclick="quickAsk('spa')">🌿 Spa</button>
+    <button class="q-btn" onclick="quickAsk('touchtone')">🖨️ Touchtone</button>
+    <button class="q-btn" onclick="quickAsk('contact')">📞 Contact</button>
+    <button class="q-btn" onclick="quickAsk('prices')">💰 Prices</button>
+    <button class="q-btn" onclick="quickAsk('book')">📅 Book Now</button>
+  </div>
+  <div class="ai-input-row">
+    <input class="ai-input" id="aiInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="ai-send" onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<script>
+// ── HERO SLIDER ─────────────────────────────────────────────
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+let sliderTimer;
+
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+function changeSlide(dir) {
+  clearInterval(sliderTimer);
+  goSlide(currentSlide + dir);
+  startTimer();
+}
+function startTimer() {
+  sliderTimer = setInterval(() => goSlide(currentSlide + 1), 5000);
+}
+startTimer();
+
+// ── NAVBAR SCROLL ────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── HONEY AI KNOWLEDGE BASE ──────────────────────────────────
+const KB = {
+  greetings: ['hello','hi','hey','good morning','good afternoon','good evening','howzit','muli'],
+  thanks: ['thank','thanks','thank you','appreciate','great','awesome','perfect','nice'],
+  apartments: {
+    keywords: ['apartment','flat','room','stay','bedroom','accommodation','rent','house','lodge','place to stay','kings land','furnished','nights','night','book apartment'],
+    response: `🏢 <strong>Honeycreep Luxury Apartments</strong><br><br>📍 <em>Kings Land City, Lusaka</em><br><br>• <strong>3 Bedrooms</strong> · 3 Bathrooms<br>• <strong>$160 per night</strong><br>• 100% Fully Furnished<br>• Floor-to-ceiling glass & private balcony<br>• BBQ patio · Landscaped gardens<br><br><strong>Includes:</strong><br>✓ 24/7 Security · Backup Power<br>✓ Free WiFi · Cleaning Service<br><br>📞 Call <strong>+260 977 662 041</strong> to book!`
+  },
+  cars: {
+    keywords: ['car','vehicle','hire','rental','drive','transport','fleet','fortuner','cr-v','mark x','hilux','alphard','range rover','suv','sedan','pickup','4x4','van'],
+    response: `🚗 <strong>Honeycreep Car Rental & Tours</strong><br><br><strong>Our Fleet:</strong><br>🚙 Toyota Fortuner — SUV, 7 Seater<br>🚗 Honda CR-V — SUV, 5 Seater<br>🚘 Toyota Mark X — Executive Sedan<br>🛻 Toyota Hilux — 4×4 Pickup<br>🚐 Toyota Alphard — Luxury MPV<br>🏎️ Range Rover — Premium SUV<br><br><strong>All include:</strong><br>✓ Fully Insured · Unlimited Mileage<br>✓ Chauffeur available · 24/7 Roadside<br><br>📞 <strong>+260 977 662 041</strong> to book!`
+  },
+  chauffeur: {
+    keywords: ['chauffeur','driver','driven','drive me','with driver'],
+    response: `🧑‍✈️ <strong>Chauffeur Service</strong><br><br>All vehicles available with a professional chauffeur driver.<br><br>Available for:<br>• Corporate & business travel<br>• Airport transfers<br>• City tours across Zambia<br>• Wedding & event transport<br><br>📞 Book on <strong>+260 977 662 041</strong>`
+  },
+  wedding: {
+    keywords: ['wedding','bride','bridal','groom','marriage','event car','special occasion'],
+    response: `💒 <strong>Wedding Transport</strong><br><br>Make your special day unforgettable:<br><br>🏎️ Range Rover — elegant arrival<br>🚐 Toyota Alphard — bridal party<br>🚙 Toyota Fortuner — family transport<br><br>We also offer:<br>👑 Bridal hair & makeup at <strong>Avalon Salon</strong><br>💑 Couple's spa package at <strong>Avalon Spa</strong><br><br>📞 Call <strong>+260 977 662 041</strong>!`
+  },
+  airport: {
+    keywords: ['airport','pickup','drop off','kkia','flight','transfer','arrive'],
+    response: `✈️ <strong>Airport Transfer Service</strong><br><br>Reliable transfers to/from <strong>Kenneth Kaunda International Airport</strong>.<br><br>🚐 Toyota Alphard (group/VIP)<br>🚗 Honda CR-V / Mark X (executive)<br>🚙 Toyota Fortuner (family)<br><br>✓ Flight tracking · Meet & greet<br>✓ 24/7 availability<br><br>📞 <strong>+260 977 662 041</strong>`
+  },
+  salon: {
+    keywords: ['salon','hair','haircut','barber','fade','style','cut','styling','colour','color','braids','relaxer','highlight','ombre','shave','beard','trim'],
+    response: `✂️ <strong>Avalon Salon & Barber Shop</strong><br><br><strong>Salon Services:</strong><br>• Haircut & styling (all hair types)<br>• Hair treatment & colouring<br>• Highlights, ombre & balayage<br>• Bridal & event styling<br><br><strong>Barber Services:</strong><br>• Classic cuts, fades & tapers<br>• Hot towel shave<br>• Beard grooming & lining<br><br>📞 Book on <strong>+260 977 662 041</strong>`
+  },
+  spa: {
+    keywords: ['spa','massage','manicure','pedicure','facial','wax','waxing','beauty','nails','threading','relax','treatment','body','skincare','couple'],
+    response: `🌿 <strong>Avalon Spa & Wellness</strong><br><br><strong>Our Treatments:</strong><br>💆 Full body massage (Swedish, deep tissue)<br>💅 Manicure — classic, gel & nail art<br>🦶 Pedicure — luxury foot care<br>✨ Facial & skincare treatments<br>🌸 Waxing & threading<br>💑 Couple's spa package<br><br>📞 <strong>+260 977 662 041</strong> to book!`
+  },
+  touchtone: {
+    keywords: ['print','printing','touchtone','banner','flyer','poster','business card','brochure','branding','logo','design','signage','merchandise','t-shirt','cap','uniform','billboard','advertising','digital media','social media'],
+    response: `🖨️ <strong>Touchtone — Print & Advertising</strong><br><br><strong>Print Services:</strong><br>• Business cards, flyers & brochures<br>• Banners & large format posters<br><br><strong>Branding & Design:</strong><br>• Logo design & brand identity<br>• Corporate stationery<br><br><strong>Merchandise:</strong><br>• T-shirts, caps & uniforms<br>• Branded corporate gifts<br><br><strong>Signage & Digital:</strong><br>• Vehicle wraps · Pull-up banners<br>• Social media graphics & online ads<br><br>📞 <strong>+260 977 662 041</strong> for a quote!`
+  },
+  prices: {
+    keywords: ['price','prices','cost','how much','rate','fee','charge','affordable','cheap','budget'],
+    response: `💰 <strong>Honeycreep Pricing</strong><br><br>🏢 <strong>Apartments:</strong> $160/night<br>(3-bed, fully furnished, Kings Land City)<br><br>🚗 <strong>Car Rental:</strong> Contact us for daily rates<br><br>✂️ <strong>Salon & Barber:</strong> Contact us for price list<br><br>🌿 <strong>Spa Treatments:</strong> Contact us for menu<br><br>🖨️ <strong>Touchtone Printing:</strong> Quote on request<br><br>📞 Call <strong>+260 977 662 041</strong> for exact pricing!`
+  },
+  book: {
+    keywords: ['book','booking','reserve','reservation','appointment','schedule','available','availability','when can','can i book'],
+    response: `📅 <strong>Book Any Honeycreep Service</strong><br><br>We're available <strong>24/7</strong>!<br><br>📞 <strong>Call or WhatsApp:</strong><br>+260 977 662 041<br>+260 979 198 312<br><br>✉️ <strong>Email:</strong><br>honeycreep2023@gmail.com<br><br>📍 <strong>Visit us:</strong><br>Southern Sun Ridgeway, Lusaka<br><br>Or use the <strong>Book Now</strong> form on this page! ⬆️`
+  },
+  contact: {
+    keywords: ['contact','phone','number','call','email','address','location','where','find you','reach'],
+    response: `📞 <strong>Contact Honeycreep</strong><br><br>📞 +260 977 662 041<br>📞 +260 979 198 312<br>✉️ honeycreep2023@gmail.com<br><br>📍 Southern Sun Ridgeway<br>Cnr. Church Road & Independence Avenue<br>Lusaka, Zambia<br><br>🕐 Open <strong>24/7</strong> — We never close!`
+  },
+  location: {
+    keywords: ['where are you','located','address','find you','lusaka','ridgeway','church road','kings land'],
+    response: `📍 <strong>Honeycreep Locations</strong><br><br><strong>Main Office:</strong><br>Southern Sun Ridgeway<br>Cnr. Church Road & Independence Avenue<br>Lusaka, Zambia<br><br><strong>Apartments:</strong><br>Kings Land City, Lusaka<br><br>📞 <strong>+260 977 662 041</strong>`
+  },
+  pacra: {
+    keywords: ['registered','pacra','zra','tpin','legit','trusted','official','company'],
+    response: `🤝 <strong>PACRA Registered Company</strong><br><br>Honeycreep Group is a fully registered, trusted Zambian company:<br><br>📋 PACRA Reg. No. <strong>120230056325</strong><br>🏛️ ZRA · TPIN <strong>2002067684</strong><br><br>Fully compliant and proudly Zambian. 🇿🇲`
+  }
+};
+
+// ── CHATBOT LOGIC ────────────────────────────────────────────
+function toggleAI() {
+  const win = document.getElementById('aiWindow');
+  win.classList.toggle('open');
+  if (win.classList.contains('open')) {
+    document.getElementById('aiInput').focus();
+    document.querySelector('.ai-fab .fab-badge').style.display = 'none';
+  }
+}
+function quickAsk(topic) {
+  const labels = {
+    apartments:'Tell me about the apartments',
+    cars:'What cars do you have?',
+    salon:'What salon services do you offer?',
+    spa:'What spa treatments are available?',
+    touchtone:'What does Touchtone offer?',
+    contact:'How do I contact you?',
+    prices:'What are your prices?',
+    book:'How do I make a booking?'
+  };
+  addMsg(labels[topic],'user');
+  document.getElementById('quickBtns').style.display = 'none';
+  setTimeout(() => showTyping(() => addMsg(KB[topic].response,'bot')), 700);
+}
+function sendMsg() {
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+  addMsg(text,'user');
+  input.value = '';
+  document.getElementById('quickBtns').style.display = 'none';
+  setTimeout(() => showTyping(() => addMsg(getReply(text),'bot')), 700);
+}
+function addMsg(html, who) {
+  const box = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${who}`;
+  div.innerHTML = who === 'bot'
+    ? `<div class="msg-avatar">🍯</div><div class="msg-bubble">${html}</div>`
+    : `<div class="msg-bubble">${html}</div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+function showTyping(cb) {
+  const box = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = 'msg bot'; div.id = 'typing';
+  div.innerHTML = `<div class="msg-avatar">🍯</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  setTimeout(() => { div.remove(); cb(); }, 1000);
+}
+function getReply(text) {
+  const t = text.toLowerCase();
+  if (KB.greetings.some(g => t.includes(g))) {
+    return `Hello there! 👋 Welcome to Honeycreep Group.<br><br>I'm Honey, your AI assistant. I can help you with:<br>🏢 Apartments · 🚗 Car Rental<br>✂️ Salon · 🌿 Spa · 🖨️ Touchtone<br><br>What would you like to know?`;
+  }
+  if (KB.thanks.some(g => t.includes(g))) {
+    return `You're very welcome! 😊<br><br>Anything else I can help with? Call us anytime on <strong>+260 977 662 041</strong>.`;
+  }
+  const cats = ['apartments','cars','chauffeur','wedding','airport','salon','spa','touchtone','prices','book','contact','location','pacra'];
+  for (const cat of cats) {
+    if (KB[cat]?.keywords?.some(k => t.includes(k))) return KB[cat].response;
+  }
+  return `I'm not sure about that, but I can connect you directly! 🤝<br><br>📞 <strong>+260 977 662 041</strong><br>📞 +260 979 198 312<br>✉️ honeycreep2023@gmail.com<br><br>Our team is available <strong>24/7</strong>!`;
+}
+</script>
+</body>
+</html>
